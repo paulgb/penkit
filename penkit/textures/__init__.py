@@ -19,7 +19,7 @@ def make_grid_texture(num_h_lines=10, num_v_lines=10, resolution=50):
     return np.concatenate([x_h, x_v]), np.concatenate([y_h, y_v])
 
 
-def make_spiral_texture(resolution=1000, offset=0.0, spirals=6.0):
+def make_spiral_texture(spirals=6.0, offset=0.0, resolution=1000):
     dist = np.sqrt(np.linspace(0., 1., resolution))
     angle = dist * spirals * np.pi * 2.
     spiral_texture = (
