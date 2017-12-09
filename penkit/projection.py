@@ -1,19 +1,23 @@
+"""The ``projection`` module provides functions for rotating 2D objects
+(surfaces and textures) in 3D space and projecting them back to 2D.
+"""
+
 import numpy as np
 
 DEFAULT_ANGLE = 45
 
 
 def map_texture_to_surface(texture, surface):
-    """
-    Returns values on a surface for points on a texture.
+    """Returns values on a surface for points on a texture.
 
-    Params:
-    - texture: the texture to trace over the surface
-    - surface: the surface to trace along
+    Args:
+        texture (texture): the texture to trace over the surface
+        surface (surface): the surface to trace along
 
-    Returns an array of surface heights for each point in the
-        texture. Line separators (i.e. values that are NaN in
-        the texture) will be NaN in the output, so the output
+    Returns:
+        an array of surface heights for each point in the
+        texture. Line separators (i.e. values that are ``nan`` in
+        the texture) will be ``nan`` in the output, so the output
         will have the same dimensions as the x/y axes in the
         input texture.
     """
@@ -30,10 +34,10 @@ def map_texture_to_surface(texture, surface):
 
 
 def project_texture(texture_xy, texture_z, angle=DEFAULT_ANGLE):
-    """
-    Creates a texture by adding z-values to an existing texture and projecting.
+    """Creates a texture by adding z-values to an existing texture and projecting.
 
     When working with surfaces there are two ways to accomplish the same thing:
+
     1. project the surface and map a texture to the projected surface
     2. map a texture to the surface, and then project the result
 
@@ -42,12 +46,13 @@ def project_texture(texture_xy, texture_z, angle=DEFAULT_ANGLE):
     for cases where you do not wish to generate a surface (and don't care about
     occlusion removal.)
 
-    Params:
-    - texture_xy: the texture to project
-    - texture_z: the Z-values to use in the projection
-    - angle: the angle to project at, in degrees (0 = overhead, 90 = side view)
+    Args:
+        texture_xy (texture): the texture to project
+        texture_z (np.array): the Z-values to use in the projection
+        angle (float): the angle to project at, in degrees (0 = overhead, 90 = side view)
 
-    Returns a layer.
+    Returns:
+        layer: A layer.
     """
     z_coef = np.sin(np.radians(angle))
     y_coef = np.cos(np.radians(angle))
@@ -56,14 +61,14 @@ def project_texture(texture_xy, texture_z, angle=DEFAULT_ANGLE):
 
 
 def project_surface(surface, angle=DEFAULT_ANGLE):
-    """
-    Returns the height of the surface when projected at the given angle.
+    """Returns the height of the surface when projected at the given angle.
 
-    Params:
-    - surface: the surface to project
-    - angle: the angle at which to project the surface
+    Args:
+        surface (surface): the surface to project
+        angle (float): the angle at which to project the surface
 
-    Returns a projected surface.
+    Returns:
+        surface: A projected surface.
     """
     z_coef = np.sin(np.radians(angle))
     y_coef = np.cos(np.radians(angle))
@@ -75,15 +80,15 @@ def project_surface(surface, angle=DEFAULT_ANGLE):
 
 
 def project_texture_on_surface(texture, surface, angle=DEFAULT_ANGLE):
-    """
-    Maps a texture onto a surface, then projects to 2D and returns a layer.
+    """Maps a texture onto a surface, then projects to 2D and returns a layer.
 
-    Params:
-    - texture: the texture to project
-    - surface: the surface to project onto
-    - angle: the projection angle in degrees (0 = top-down, 90 = side view)
+    Args:
+        texture (texture): the texture to project
+        surface (surface): the surface to project onto
+        angle (float): the projection angle in degrees (0 = top-down, 90 = side view)
 
-    Returns a layer.
+    Returns:
+        layer: A layer.
     """
     projected_surface = project_surface(surface, angle)
     texture_x, _ = texture
@@ -92,28 +97,28 @@ def project_texture_on_surface(texture, surface, angle=DEFAULT_ANGLE):
 
 
 def _make_occlusion_mask(projected_surface):
-    """
-    Generates a binary matrix representing the parts of a surface that
+    """Generates a binary matrix representing the parts of a surface that
     are occluded. This assumes the surface is already projected with
     project_surface.
 
-    Params:
-    - projected_surface: the surface to use
+    Args:
+        projected_surface (surface): the surface to use
 
-    Returns a binary matrix with the same dimensions as the input surface.
+    Returns:
+        np.matrix: a binary matrix with the same dimensions as the input surface.
     """
     projected_surface_max = np.maximum.accumulate(projected_surface)
     return projected_surface == projected_surface_max
 
 
 def _remove_hidden_parts(projected_surface):
-    """
-    Removes parts of a projected surface that are not visible.
+    """Removes parts of a projected surface that are not visible.
 
-    Params:
-    - projected_surface: the surface to use
+    Args:
+        projected_surface (surface): the surface to use
 
-    Returns a projected surface.
+    Returns:
+        surface: A projected surface.
     """
     surface = np.copy(projected_surface)
     surface[~_make_occlusion_mask(projected_surface)] = np.nan
@@ -121,15 +126,15 @@ def _remove_hidden_parts(projected_surface):
 
 
 def project_and_occlude_texture(texture, surface, angle=DEFAULT_ANGLE):
-    """
-    Projects a texture onto a surface with occluded areas removed.
+    """Projects a texture onto a surface with occluded areas removed.
 
-    Params:
-    - texture: the texture to map to the projected surface
-    - surface: the surface to project
-    - angle: the angle to project at, in degrees (0 = overhead, 90 = side view)
+    Args:
+        texture (texture): the texture to map to the projected surface
+        surface (surface): the surface to project
+        angle (float): the angle to project at, in degrees (0 = overhead, 90 = side view)
 
-    Returns a layer.
+    Returns:
+        layer: A layer.
     """
     projected_surface = project_surface(surface, angle)
     projected_surface = _remove_hidden_parts(projected_surface)

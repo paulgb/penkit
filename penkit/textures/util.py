@@ -1,16 +1,19 @@
+"""The ``textures.util`` module contains utility functions for working with textures.
+"""
+
 import numpy as np
 
 def rotate_texture(texture, deg_angle, x_offset=0.5, y_offset=0.5):
-    """
-    Rotates the given texture by a given angle.
+    """Rotates the given texture by a given angle.
 
-    Params:
-    - texture: the texture to rotate
-    - angle: the angle of rotation in degrees
-    - x_offset: the x component of the center of rotation (optional)
-    - y_offset: the y component of the center of rotation (optional)
+    Args:
+        texture (texture): the texture to rotate
+        angle (float): the angle of rotation in degrees
+        x_offset (float): the x component of the center of rotation (optional)
+        y_offset (float): the y component of the center of rotation (optional)
 
-    Returns a texture.
+    Returns:
+        texture: A texture.
     """
     x, y = texture
     x -= x_offset
@@ -22,15 +25,15 @@ def rotate_texture(texture, deg_angle, x_offset=0.5, y_offset=0.5):
 
 
 def fit_texture(layer):
-    """
-    Fits a layer into a texture by scaling each axis to (0, 1).
+    """Fits a layer into a texture by scaling each axis to (0, 1).
 
     Does not preserve aspect ratio (TODO: make this an option).
 
-    Params:
-    - layer: the layer to scale
+    Args:
+        layer (layer): the layer to scale
 
-    Returns a texture.
+    Returns:
+        texture: A texture.
     """
     x, y = layer
     x = (x - np.nanmin(x)) / (np.nanmax(x) - np.nanmin(x))

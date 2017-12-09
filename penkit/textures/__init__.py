@@ -1,17 +1,20 @@
+"""The ``textures`` module includes functions to generate textures.
+"""
+
 import numpy as np
 
 from penkit.textures.util import fit_texture
 
 
 def make_lines_texture(num_lines=10, resolution=50):
-    """
-    Makes a texture consisting of a given number of horizontal lines.
+    """Makes a texture consisting of a given number of horizontal lines.
 
-    Params:
-    - num_lines: the number of lines to draw
-    - resolution: the number of midpoints on each line
+    Args:
+        num_lines (int): the number of lines to draw
+        resolution (int): the number of midpoints on each line
 
-    Returns a texture.
+    Returns:
+        A texture.
     """
     x, y = np.meshgrid(
         np.hstack([np.linspace(0, 1, resolution), np.nan]),
@@ -23,15 +26,15 @@ def make_lines_texture(num_lines=10, resolution=50):
 
 
 def make_grid_texture(num_h_lines=10, num_v_lines=10, resolution=50):
-    """
-    Makes a texture consisting of a grid of vertical and horizontal lines.
+    """Makes a texture consisting of a grid of vertical and horizontal lines.
 
-    Params:
-    - num_h_lines: the number of horizontal lines to draw
-    - num_v_lines: the number of vertical lines to draw
-    - resolution: the number of midpoints to draw on each line
+    Args:
+        num_h_lines (int): the number of horizontal lines to draw
+        num_v_lines (int): the number of vertical lines to draw
+        resolution (int): the number of midpoints to draw on each line
 
-    Returns a texture.
+    Returns:
+        A texture.
     """
     x_h, y_h = make_lines_texture(num_h_lines, resolution)
     y_v, x_v = make_lines_texture(num_v_lines, resolution)
@@ -39,16 +42,16 @@ def make_grid_texture(num_h_lines=10, num_v_lines=10, resolution=50):
 
 
 def make_spiral_texture(spirals=6.0, ccw=False, offset=0.0, resolution=1000):
-    """
-    Makes a texture consisting of a spiral from the origin.
+    """Makes a texture consisting of a spiral from the origin.
 
-    Params:
-    - spirals: the number of rotations to make
-    - ccw: make spirals counter-clockwise (default is clockwise)
-    - offset: if non-zero, spirals start offset by this amount
-    - resolution: number of midpoints along the spiral
+    Args:
+        spirals (float): the number of rotations to make
+        ccw (bool): make spirals counter-clockwise (default is clockwise)
+        offset (float): if non-zero, spirals start offset by this amount
+        resolution (int): number of midpoints along the spiral
 
-    Returns a texture.
+    Returns:
+        A texture.
     """
     dist = np.sqrt(np.linspace(0., 1., resolution))
     if ccw:
@@ -64,12 +67,14 @@ def make_spiral_texture(spirals=6.0, ccw=False, offset=0.0, resolution=1000):
 
 
 def make_hex_texture(grid_size = 2, resolution=1):
-    """
-    Makes a texture consisting on a grid of hexagons.
+    """Makes a texture consisting on a grid of hexagons.
 
-    Params:
-    - grid_size: the number of hexagons along each dimension of the grid
-    - resolution: the number of midpoints along the line of each hexagon
+    Args:
+        grid_size (int): the number of hexagons along each dimension of the grid
+        resolution (int): the number of midpoints along the line of each hexagon
+    
+    Returns:
+        A texture.
     """
     grid_x, grid_y = np.meshgrid(
         np.arange(grid_size),
