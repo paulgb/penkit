@@ -4,6 +4,15 @@ from penkit.textures.util import fit_texture
 
 
 def make_lines_texture(num_lines=10, resolution=50):
+    """
+    Makes a texture consisting of a given number of horizontal lines.
+
+    Params:
+    - num_lines: the number of lines to draw
+    - resolution: the number of midpoints on each line
+
+    Returns a texture.
+    """
     x, y = np.meshgrid(
         np.hstack([np.linspace(0, 1, resolution), np.nan]),
         np.linspace(0, 1, num_lines),
@@ -14,14 +23,39 @@ def make_lines_texture(num_lines=10, resolution=50):
 
 
 def make_grid_texture(num_h_lines=10, num_v_lines=10, resolution=50):
+    """
+    Makes a texture consisting of a grid of vertical and horizontal lines.
+
+    Params:
+    - num_h_lines: the number of horizontal lines to draw
+    - num_v_lines: the number of vertical lines to draw
+    - resolution: the number of midpoints to draw on each line
+
+    Returns a texture.
+    """
     x_h, y_h = make_lines_texture(num_h_lines, resolution)
     y_v, x_v = make_lines_texture(num_v_lines, resolution)
     return np.concatenate([x_h, x_v]), np.concatenate([y_h, y_v])
 
 
-def make_spiral_texture(spirals=6.0, offset=0.0, resolution=1000):
+def make_spiral_texture(spirals=6.0, ccw=False, offset=0.0, resolution=1000):
+    """
+    Makes a texture consisting of a spiral from the origin.
+
+    Params:
+    - spirals: the number of rotations to make
+    - ccw: make spirals counter-clockwise (default is clockwise)
+    - offset: if non-zero, spirals start offset by this amount
+    - resolution: number of midpoints along the spiral
+
+    Returns a texture.
+    """
     dist = np.sqrt(np.linspace(0., 1., resolution))
-    angle = dist * spirals * np.pi * 2.
+    if ccw:
+        direction = 1.
+    else:
+        direction = -1.
+    angle = dist * spirals * np.pi * 2. * direction
     spiral_texture = (
         (np.cos(angle) * dist / 2.) + 0.5,
         (np.sin(angle) * dist / 2.) + 0.5
@@ -30,6 +64,13 @@ def make_spiral_texture(spirals=6.0, offset=0.0, resolution=1000):
 
 
 def make_hex_texture(grid_size = 2, resolution=1):
+    """
+    Makes a texture consisting on a grid of hexagons.
+
+    Params:
+    - grid_size: the number of hexagons along each dimension of the grid
+    - resolution: the number of midpoints along the line of each hexagon
+    """
     grid_x, grid_y = np.meshgrid(
         np.arange(grid_size),
         np.arange(grid_size)
