@@ -2,3 +2,5 @@ __pycache__
 penkit.egg-info
 .vscode
 .ipynb_checkpoints
+.DS_Store
+docs/build
