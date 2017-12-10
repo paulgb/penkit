@@ -4,3 +4,4 @@ penkit.egg-info
 .ipynb_checkpoints
 .DS_Store
 docs/build
+dist
