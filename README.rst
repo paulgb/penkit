@@ -27,6 +27,10 @@ Examples:
     >>> # plot the result
     >>> write_plot([proj], 'examples/grid_surface.svg')
 
+.. image:: examples/grid_surface.svg
+   :width: 400px
+
+Hilbert curve:
 
     >>> from penkit.fractal import hilbert_curve
     >>> from penkit.textures.util import fit_texture, rotate_texture
@@ -50,7 +54,8 @@ Examples:
     >>> # plot the result
     >>> write_plot([proj], 'examples/hilbert_surface.svg')
 
-
+.. image:: examples/hilbert_surface.svg
+   :width: 400px
 
 `Module Documentation <http://penkit.readthedocs.io/en/latest/>`_
 
