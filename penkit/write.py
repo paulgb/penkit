@@ -8,8 +8,9 @@ DEFAULT_PAGE_UNIT = 'in'
 
 # Plot-related defaults
 DEFAULT_VIEW_BOX_MARGIN = 0.1
-STROKE_THICKNESS = 0.003 # Fraction of width of image
+STROKE_THICKNESS = 0.003  # Fraction of width of image
 PLOT_COLORS = ['black', 'red', 'green', 'blue', 'cyan', 'orange']
+
 
 def calculate_view_box(layers, aspect_ratio, margin=DEFAULT_VIEW_BOX_MARGIN):
     """Calculates the size of the SVG viewBox to use.
@@ -19,7 +20,7 @@ def calculate_view_box(layers, aspect_ratio, margin=DEFAULT_VIEW_BOX_MARGIN):
         aspect_ratio (float): the height of the output divided by the width
         margin (float): minimum amount of buffer to add around the image, relative
             to the total dimensions
-    
+
     Returns:
         tuple: a 4-tuple of floats representing the viewBox according to SVG
             specifications ``(x, y, width, height)``.
@@ -54,7 +55,7 @@ def _layer_to_path_gen(layer):
 
     Args:
         layer (layer): the layer to convert
-    
+
     Yields:
         str: the next component of the path
     """
@@ -74,7 +75,7 @@ def layer_to_path(layer):
 
     Args:
         layer (layer): the layer to convert
-    
+
     Returns:
         str: an SVG path
     """
@@ -89,7 +90,7 @@ def plot_to_svg(plot, width, height, unit=''):
         width (float): the width of the resulting image
         height (float): the height of the resulting image
         unit (str): the units of the resulting image if not pixels
-    
+
     Returns:
         str: A stringified XML document representing the image
     """
@@ -100,10 +101,12 @@ def plot_to_svg(plot, width, height, unit=''):
     stroke_thickness = STROKE_THICKNESS * (view_box[2])
 
     svg = ET.Element('svg', attrib={
-                     'width': '{}{}'.format(width, unit),
-                     'height': '{}{}'.format(height, unit),
-                     'viewBox': view_box_str})
-    
+        'xmlns': 'http://www.w3.org/2000/svg',
+        'xmlns:inkscape': 'http://www.inkscape.org/namespaces/inkscape',
+        'width': '{}{}'.format(width, unit),
+        'height': '{}{}'.format(height, unit),
+        'viewBox': view_box_str})
+
     for i, layer in enumerate(flipped_plot):
         group = ET.SubElement(svg, 'g', attrib={
             'inkscape:label': '{}-layer'.format(i),
@@ -130,7 +133,7 @@ def layer_to_svg(layer, **kwargs):
         width (float): the width of the resulting image
         height (float): the height of the resulting image
         unit (str): the units of the resulting image if not pixels
-    
+
     Returns:
         str: A stringified XML document representing the image
     """

@@ -6,9 +6,6 @@ import numpy as np
 
 from penkit.turtle import turtle_to_texture
 
-RIGHT_ANGLE = 90
-SIXTY_DEGREE_ANGLE = 60
-
 
 def transform_sequence(sequence, transformations):
     """Applies a given set of substitution rules to the given string or generator.
@@ -74,39 +71,3 @@ def l_system(axiom, transformations, iterations=1, angle=45, resolution=1):
     """
     turtle_program = transform_multiple(axiom, transformations, iterations)
     return turtle_to_texture(turtle_program, angle, resolution=resolution)
-
-
-def hilbert_curve(iterations=5, resolution=1):
-    """Generates a Hilbert space-filling curve using an L-System.
-
-    For more information see: https://en.wikipedia.org/wiki/Hilbert_curve
-
-    Args:
-        iterations (int): the number of times to iterate the transformation
-        steps (int): the number of midpoints along each line
-
-    Returns:
-        A texture
-    """
-    return l_system('L', {
-        'L': '-RF+LFL+FR-',
-        'R': '+LF-RFR-FL+'
-    }, iterations, RIGHT_ANGLE, resolution)
-
-
-def flowsnake(iterations=5, resolution=1):
-    """Generates a Peano-Gosper curve using an L-System.
-
-    For more information see: https://en.wikipedia.org/wiki/Gosper_curve
-
-    Args:
-        iterations (int): the number of times to iterate the transformation
-        steps (int): the number of midpoints along each line
-
-    Returns:
-        A texture
-    """
-    return l_system('A', {
-        'A': 'A-B--B+A++AA+B-',
-        'B': '+A-BB--B-A++A+B'
-    }, iterations, SIXTY_DEGREE_ANGLE, resolution)

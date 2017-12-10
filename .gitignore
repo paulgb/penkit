@@ -1,7 +1,8 @@
-__pycache__
-penkit.egg-info
-.vscode
-.ipynb_checkpoints
 .DS_Store
-docs/build
+.cache
+.ipynb_checkpoints
+.vscode
+__pycache__
 dist
+docs/build
+penkit.egg-info

@@ -7,3 +7,4 @@ python:
 # command to run tests
 script:
   - py.test penkit --doctest-modules
+  - py.test --doctest-glob="*.rst"
