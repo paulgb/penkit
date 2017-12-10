@@ -7,4 +7,5 @@ python:
 # command to run tests
 script:
   - py.test penkit --doctest-modules
+  - python setup.py install
   - py.test --doctest-glob="*.rst"
