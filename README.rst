@@ -47,6 +47,9 @@ Grid Surface Projection
 .. image:: examples/grid_surface.svg
    :width: 400px
 
+.. image:: gallery/grid_surface.jpg
+   :width: 400px
+
 Hilbert Curve Surface Projection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -73,6 +76,9 @@ Hilbert Curve Surface Projection
     >>> write_plot([proj], 'examples/hilbert_surface.svg')
 
 .. image:: examples/hilbert_surface.svg
+   :width: 400px
+
+.. image:: gallery/hilbert_surface.jpg
    :width: 400px
 
 ----
