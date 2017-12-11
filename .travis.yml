@@ -5,7 +5,7 @@ python:
   - "3.5"
   - "3.6"
 install:
-  - pip install -r travis_requirements.txt
+  - pip install -r requirements_travis.txt
 script:
   - py.test penkit --doctest-modules
   - python setup.py install
