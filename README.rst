@@ -3,6 +3,19 @@ Penkit
 
 **Penkit** is a library of utility functions generating `pen plots <https://en.wikipedia.org/wiki/Plotter>`__ from Python/numpy.
 
+Installation
+------------
+
+Requirements: Python 2.7 or 3.x, `numpy`, `scipy`. Preview modules require `ipython` or `matplotlib`.
+
+    # pip install penkit
+
+Documentation
+-------------
+
+- Download the `tutorial notebooks <tutorial>`_ or `run them on Binder <https://mybinder.org/v2/gh/paulgb/penkit.git/master?filepath=tutorial>`_
+- `Module Documentation <http://penkit.readthedocs.io/en/latest/>`_
+
 Examples
 --------
 
@@ -61,13 +74,6 @@ Hilbert Curve Surface Projection
 
 .. image:: examples/hilbert_surface.svg
    :width: 400px
-
-
-Documentation
--------------
-
-- Download the `tutorial notebooks <tutorial>`_ or `run them on Binder <https://mybinder.org/v2/gh/paulgb/penkit.git/master?filepath=tutorial>`_
-- `Module Documentation <http://penkit.readthedocs.io/en/latest/>`_
 
 ----
 
