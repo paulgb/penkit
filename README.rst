@@ -3,7 +3,11 @@ Penkit
 
 **Penkit** is a library of utility functions generating `pen plots <https://en.wikipedia.org/wiki/Plotter>`__ from Python/numpy.
 
-Examples:
+Examples
+--------
+
+Grid Surface Projection
+~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> from penkit.textures import make_grid_texture
     >>> from penkit.textures.util import rotate_texture
@@ -30,7 +34,8 @@ Examples:
 .. image:: examples/grid_surface.svg
    :width: 400px
 
-Hilbert curve:
+Hilbert Curve Surface Projection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     >>> from penkit.fractal import hilbert_curve
     >>> from penkit.textures.util import fit_texture, rotate_texture
@@ -57,7 +62,12 @@ Hilbert curve:
 .. image:: examples/hilbert_surface.svg
    :width: 400px
 
-`Module Documentation <http://penkit.readthedocs.io/en/latest/>`_
+
+Documentation
+-------------
+
+- Download the `tutorial notebooks <tutorial>`_ or `run them on Binder <https://mybinder.org/v2/gh/paulgb/penkit.git/master?filepath=tutorial>`_
+- `Module Documentation <http://penkit.readthedocs.io/en/latest/>`_
 
 ----
 
