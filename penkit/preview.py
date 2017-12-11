@@ -3,7 +3,7 @@
 These functions are useful for iterative development of plots.
 """
 
-from IPython.display import HTML
+from IPython.display import SVG
 
 from penkit.write import plot_to_svg
 
@@ -36,4 +36,4 @@ def show_plot(plot, width=PREVIEW_WIDTH, height=PREVIEW_HEIGHT):
     Returns:
         An object that renders in Jupyter as the provided plot
     """
-    return HTML(plot_to_svg(plot, width, height))
+    return SVG(data=plot_to_svg(plot, width, height))
