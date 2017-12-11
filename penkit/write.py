@@ -120,7 +120,11 @@ def plot_to_svg(plot, width, height, unit=''):
             'd': layer_to_path(layer)
         })
 
-    return ET.tostring(svg, encoding='unicode')
+    try:
+        return ET.tostring(svg, encoding='unicode')
+    except LookupError:
+        # Python 2.x
+        return ET.tostring(svg)
 
 
 def layer_to_svg(layer, **kwargs):

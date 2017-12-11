@@ -65,4 +65,4 @@ Hilbert curve:
    :target: https://travis-ci.org/paulgb/penkit
 
 .. image:: https://mybinder.org/badge.svg
-   :target: https://mybinder.org/v2/gh/paulgb/penkit.git/master?filepath=examples
+   :target: https://mybinder.org/v2/gh/paulgb/penkit.git/master?filepath=tutorial
