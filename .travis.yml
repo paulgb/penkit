@@ -8,4 +8,4 @@ python:
 script:
   - py.test penkit --doctest-modules
   - python setup.py install
-  - py.test --doctest-glob="*.rst"
+  - PYTHONPATH=. py.test --doctest-glob="*.rst"
