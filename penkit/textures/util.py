@@ -16,8 +16,8 @@ def rotate_texture(texture, rotation, x_offset=0.5, y_offset=0.5):
         texture: A texture.
     """
     x, y = texture
-    x -= x_offset
-    y -= y_offset
+    x = x.copy() - x_offset
+    y = y.copy() - y_offset
     angle = np.radians(rotation)
     x_rot = x * np.cos(angle) + y * np.sin(angle)
     y_rot = x * -np.sin(angle) + y * np.cos(angle)
