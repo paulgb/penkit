@@ -9,4 +9,4 @@ install:
 script:
   - py.test penkit --doctest-modules
   - python setup.py install
-  - PYTHONPATH=. py.test --doctest-glob="*.rst"
+  - sphinx-build -b doctest -C -Dmaster_doc=README -Dextensions=sphinx.ext.doctest ./ /tmp/ README.rst
