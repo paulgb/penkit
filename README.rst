@@ -22,7 +22,7 @@ Examples
 Grid Surface Projection
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-.. testcode::
+.. code::
 
     from penkit.textures import make_grid_texture
     from penkit.textures.util import rotate_texture
@@ -52,7 +52,7 @@ Grid Surface Projection
 Hilbert Curve Surface Projection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. testcode::
+.. code::
 
     from penkit.fractal import hilbert_curve
     from penkit.textures.util import fit_texture, rotate_texture
