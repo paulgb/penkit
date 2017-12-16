@@ -8,7 +8,7 @@ Installation
 
 Requirements: Python 2.7 or 3.x, `numpy`, `scipy`. Preview modules require `ipython` or `matplotlib`.
 
-    pip install penkit
+    # pip install penkit
 
 Documentation
 -------------
