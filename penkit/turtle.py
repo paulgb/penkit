@@ -70,7 +70,7 @@ def branching_turtle_generator(turtle_program, turn_amount=DEFAULT_TURN,
             else:
                 dx = new_x - x
                 dy = new_y - y
-                for frac in (1 - np.flip(np.linspace(0, 1, resolution, False), 0)):
+                for frac in (1 - np.flipud(np.linspace(0, 1, resolution, False))):
                     yield (x + frac * dx, y + frac * dy)
 
         elif command == CW_TURN_COMMAND:

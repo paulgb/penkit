@@ -6,3 +6,4 @@ __pycache__
 dist
 docs/build
 penkit.egg-info
+build
