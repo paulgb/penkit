@@ -56,6 +56,7 @@ def run_optimizer(input_file, output_file, vis_output, runtime, greedy, noopt, m
         wsvg(route, filename=output_file)
 
     if vis_output is not None:
+        print('Writing visualization to {}'.format(vis_output))
         visualize_pen_transits(route, vis_output)
 
 
@@ -67,10 +68,12 @@ def main():
                         help="Run greedy optimization only.")
     parser.add_argument('--noopt', '-n', action='store_true',
                         help="Don't run any optimization.")
-    parser.add_argument('--runtime', '-t', default=300, type=int)
+    parser.add_argument('--runtime', '-t', default=300, type=int,
+                        help='Maximum runtime (in seconds) of optimization stage.')
     parser.add_argument('--merge-paths', '-m', nargs='?',
-                        type=float, default=False)
-    parser.add_argument('--vis-output', '-v')
+                        type=float, default=False, help='Merge paths that start/end near each other. You may optionally specify a threshold distance (in document units) after this parameter.')
+    parser.add_argument(
+        '--vis-output', '-v', help='If provided, save a visualization of the path to this SVG file.')
 
     args = parser.parse_args()
     run_optimizer(**vars(args))
