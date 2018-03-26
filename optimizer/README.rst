@@ -50,7 +50,7 @@ Don't optimize anything, just visualize the transits::
 
     penkit-optimize input.svg -n -v noopt-vis.svg
 
-Result:
+``noopt-vis.svg``:
 
 .. image:: examples/noopt-vis.svg
 
@@ -58,7 +58,7 @@ Run greedy optimization (only), save the file, and save a visualization of the r
 
     penkit-optimize input.svg output.svg -g -v greedy-vis.svg
 
-Result:
+``greedy-vis.svg``:
 
 .. image:: examples/greedy-vis.svg
 
@@ -66,7 +66,7 @@ Run the full optimization and write a visualization of the result::
 
     penkit-optimize input.svg output.svg -v opt-vis.svg
 
-Result:
+``opt-vis.svg``:
 
 .. image:: examples/opt-vis.svg
 
