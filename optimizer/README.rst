@@ -1,4 +1,4 @@
-``penkit-optimize`` is a command-line tool for optimizing the drawing order of SVG graphics for pen plotting. For more information, `see this post <https://bitaesthetics.com/posts/optimizing-plots-with-a-tsp-solver.html>`_.
+``penkit-optimize`` is a command-line tool for optimizing and visualizing the drawing order of SVG graphics for pen plotting. For more information, `see this post <https://bitaesthetics.com/posts/optimizing-plots-with-a-tsp-solver.html>`_.
 
 Installation
 ~~~~~~~~~~~~
