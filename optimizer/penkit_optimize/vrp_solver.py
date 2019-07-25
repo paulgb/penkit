@@ -51,8 +51,8 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
     # improve on.
     initial_assignment = routing.ReadAssignmentFromRoutes([initial_solution],
                                                           True)
-    # print('Initial distance:',
-    #      initial_assignment.ObjectiveValue() / COST_MULTIPLIER)
+    print('Initial distance:',
+          initial_assignment.ObjectiveValue() / COST_MULTIPLIER)
 
     # Set the parameters of the search.
     search_parameters = pywrapcp.RoutingModel.DefaultSearchParameters()
@@ -63,8 +63,7 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
     # Run the optimizer and report the final distance.
     assignment = routing.SolveFromAssignmentWithParameters(initial_assignment,
                                                            search_parameters)
-    print()
-    #print('Final distance:', assignment.ObjectiveValue() / COST_MULTIPLIER)
+    print('Final distance:', assignment.ObjectiveValue() / COST_MULTIPLIER)
 
     # Iterate over the result to produce a list to return as the solution.
     solution = []

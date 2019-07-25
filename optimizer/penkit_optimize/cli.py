@@ -13,7 +13,7 @@ from penkit_optimize.vrp_solver import vrp_solver
 DEFAULT_MERGE_THRESHOLD = 2.0
 
 
-def run_optimizer(input_file, output_file, vis_output, runtime, greedy, noopt, merge_paths):
+def run_optimizer(input_file, output_file, vis_output, runtime, greedy, noopt, merge_paths, origin_x, origin_y):
     paths = load_paths(input_file)
 
     initial_cost = cost_of_route(paths)
@@ -22,7 +22,7 @@ def run_optimizer(input_file, output_file, vis_output, runtime, greedy, noopt, m
     if noopt:
         route = paths
     else:
-        path_graph = PathGraph(paths)
+        path_graph = PathGraph(paths, origin=origin_x+(origin_y*1j))
         greedy_solution = list(greedy_walk(path_graph))
         greedy_route = get_route_from_solution(greedy_solution, path_graph)
 
@@ -64,6 +64,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file')
     parser.add_argument('output_file', nargs='?')
+    parser.add_argument('--origin-x', default=0., type=float)
+    parser.add_argument('--origin-y', default=0., type=float)
     parser.add_argument('--greedy', '-g', action='store_true',
                         help="Run greedy optimization only.")
     parser.add_argument('--noopt', '-n', action='store_true',
