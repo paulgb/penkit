@@ -23,19 +23,8 @@ class PolargraphGCode:
         
         return a, b
 
-    def svg_to_polargraph(self, svg_file, segment_size=8):
-        paths, _ = svgpathtools.svg2paths(svg_file)
-        lines = []
-
-        for path in paths:
-            for cp in path.continuous_subpaths():
-                last_pos = None
-                segments = int(cp.length() / segment_size)
-                for frac in np.linspace(0., 1., segments):
-                    pos = cp.point(frac)
-                    if last_pos:
-                        lines.append(svgpathtools.Line(last_pos, pos))
-                    last_pos = pos
+    def svg_to_polargraph(self, svg_file):
+        lines, _ = svgpathtools.svg2paths(svg_file)
 
         last = None
         for line in lines:
