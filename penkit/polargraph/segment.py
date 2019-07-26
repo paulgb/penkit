@@ -2,8 +2,8 @@ import svgpathtools
 
 import numpy as np
 
-def segment_svg(svg_file, output_file, segment_size=8)
-    paths, _ = svgpathtools.svg2paths('./nyc.svg')
+def segment_svg(svg_file, output_file, segment_size=8):
+    paths, _ = svgpathtools.svg2paths(svg_file)
 
     lines = []
 
