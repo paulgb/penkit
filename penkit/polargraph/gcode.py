@@ -75,6 +75,10 @@ class PolargraphGCode:
     def polargraph_to_cartesian(self, a, b):
         a += self.diagonal
         b += self.diagonal
+
+        if a+b < self.width:
+            return np.nan, np.nan
+
         x = (a ** 2 - b ** 2 + self.width ** 2) / (2 * self.width)
         try:
             y = self.height - sqrt(a ** 2 - x ** 2)
