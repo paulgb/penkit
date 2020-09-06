@@ -16,8 +16,8 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
     """
     # Create the VRP routing model. The 1 means we are only looking
     # for a single path.
-    routing = pywrapcp.RoutingModel(path_graph.num_nodes(),
-                                    1, path_graph.ORIGIN)
+    manager = pywrapcp.RoutingIndexManager(path_graph.num_nodes(), 1, path_graph.ORIGIN)
+    routing = pywrapcp.RoutingModel(manager)
 
     # For every path node, add a disjunction so that we do not also
     # draw its reverse.
@@ -30,8 +30,11 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
     COST_MULTIPLIER = 1e4
 
     def distance(i, j):
-        return int(path_graph.cost(i, j) * COST_MULTIPLIER)
-    routing.SetArcCostEvaluatorOfAllVehicles(distance)
+        from_node = manager.IndexToNode(i)
+        to_node = manager.IndexToNode(j)
+        return int(path_graph.cost(from_node, to_node) * COST_MULTIPLIER)
+    transit_callback_index = routing.RegisterTransitCallback(distance)
+    routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
     start_time = time()
 
@@ -55,14 +58,12 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
           initial_assignment.ObjectiveValue() / COST_MULTIPLIER)
 
     # Set the parameters of the search.
-    search_parameters = pywrapcp.RoutingModel.DefaultSearchParameters()
-    search_parameters.time_limit_ms = runtime_seconds * 1000
-    search_parameters.local_search_metaheuristic = (
-        routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH)
+    search_parameters = pywrapcp.DefaultRoutingSearchParameters()
+    search_parameters.time_limit.seconds = runtime_seconds
+    search_parameters.local_search_metaheuristic = (routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH)
 
     # Run the optimizer and report the final distance.
-    assignment = routing.SolveFromAssignmentWithParameters(initial_assignment,
-                                                           search_parameters)
+    assignment = routing.SolveFromAssignmentWithParameters(initial_assignment, search_parameters)
     print('Final distance:', assignment.ObjectiveValue() / COST_MULTIPLIER)
 
     # Iterate over the result to produce a list to return as the solution.
@@ -70,7 +71,7 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
     index = routing.Start(0)
     while not routing.IsEnd(index):
         index = assignment.Value(routing.NextVar(index))
-        node = routing.IndexToNode(index)
+        node = manager.IndexToNode(index)
         if node != 0:
             # For compatibility with the greedy solution, exclude the origin.
             solution.append(node)
