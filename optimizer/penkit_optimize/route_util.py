@@ -5,20 +5,18 @@ import svgpathtools
 def check_valid_solution(solution, graph):
     """Check that the solution is valid: every path is visited exactly once."""
     expected = Counter(
-        i for (i, _) in graph.iter_starts_with_index()
-        if i < graph.get_disjoint(i)
+        i for (i, _) in graph.iter_starts_with_index() if i < graph.get_disjoint(i)
     )
-    actual = Counter(
-        min(i, graph.get_disjoint(i))
-        for i in solution
-    )
+    actual = Counter(min(i, graph.get_disjoint(i)) for i in solution)
 
     difference = Counter(expected)
     difference.subtract(actual)
     difference = {k: v for k, v in difference.items() if v != 0}
     if difference:
-        print('Solution is not valid!'
-              'Difference in node counts (expected - actual): {}'.format(difference))
+        print(
+            "Solution is not valid!"
+            "Difference in node counts (expected - actual): {}".format(difference)
+        )
         return False
     return True
 
@@ -62,13 +60,11 @@ def dist(p1, p2):
     return abs(p1 - p2)
 
 
-def cost_of_route(path, origin=0. + 0j):
+def cost_of_route(path, origin=0.0 + 0j):
     # Cost from the origin to the start of the first path
     cost = dist(origin, path[0].start)
     # Cost between the end of each path and the start of the next
-    cost += sum(
-        dist(path[i].end, path[i + 1].start) for i in range(len(path) - 1)
-    )
+    cost += sum(dist(path[i].end, path[i + 1].start) for i in range(len(path) - 1))
     # Cost to return back to the origin
     cost += dist(path[-1].end, origin)
     return cost

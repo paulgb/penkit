@@ -33,6 +33,7 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
         from_node = manager.IndexToNode(i)
         to_node = manager.IndexToNode(j)
         return int(path_graph.cost(from_node, to_node) * COST_MULTIPLIER)
+
     transit_callback_index = routing.RegisterTransitCallback(distance)
     routing.SetArcCostEvaluatorOfAllVehicles(transit_callback_index)
 
@@ -41,8 +42,11 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
     def found_solution():
         t = time() - start_time
         cost = routing.CostVar().Max() / COST_MULTIPLIER
-        print('\rBest solution at {} seconds has cost {}        '.format(
-            int(t), cost), end='')
+        print(
+            "\rBest solution at {} seconds has cost {}        ".format(int(t), cost),
+            end="",
+        )
+
     routing.AddAtSolutionCallback(found_solution)
 
     # If we weren't supplied with a solution initially, construct one by taking
@@ -52,19 +56,21 @@ def vrp_solver(path_graph, initial_solution=None, runtime_seconds=60):
 
     # Compute the cost of the initial solution. This is the number we hope to
     # improve on.
-    initial_assignment = routing.ReadAssignmentFromRoutes([initial_solution],
-                                                          True)
-    print('Initial distance:',
-          initial_assignment.ObjectiveValue() / COST_MULTIPLIER)
+    initial_assignment = routing.ReadAssignmentFromRoutes([initial_solution], True)
+    print("Initial distance:", initial_assignment.ObjectiveValue() / COST_MULTIPLIER)
 
     # Set the parameters of the search.
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.time_limit.seconds = runtime_seconds
-    search_parameters.local_search_metaheuristic = (routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH)
+    search_parameters.local_search_metaheuristic = (
+        routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
+    )
 
     # Run the optimizer and report the final distance.
-    assignment = routing.SolveFromAssignmentWithParameters(initial_assignment, search_parameters)
-    print('Final distance:', assignment.ObjectiveValue() / COST_MULTIPLIER)
+    assignment = routing.SolveFromAssignmentWithParameters(
+        initial_assignment, search_parameters
+    )
+    print("Final distance:", assignment.ObjectiveValue() / COST_MULTIPLIER)
 
     # Iterate over the result to produce a list to return as the solution.
     solution = []
