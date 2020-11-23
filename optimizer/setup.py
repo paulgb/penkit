@@ -7,7 +7,7 @@ def readme():
 
 
 setup(name='penkit-optimize',
-      version='0.0.2',
+      version='0.0.3',
       description='Experimental SVG optimizer using or-tools.',
       long_description=readme(),
       author='Paul Butler',
@@ -20,7 +20,7 @@ setup(name='penkit-optimize',
           ]
       },
       install_requires=[
-          'ortools>=6.7.4973',
+          'ortools>=8.0.8283',
           'Rtree>=0.8.3',
           'svgpathtools>=1.3.2',
       ])
