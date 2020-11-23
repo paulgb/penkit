@@ -5,7 +5,7 @@ class PathGraph:
     # The origin is always at index 0.
     ORIGIN = 0
 
-    def __init__(self, paths, origin=0. + 0j):
+    def __init__(self, paths, origin=0.0 + 0j):
         """Constructs a PathGraph from the output of svgpathtools.svg2paths."""
         self.paths = paths
         # For any node i, endpoints[i] will be a pair containing that node's
