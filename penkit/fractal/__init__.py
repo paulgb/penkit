@@ -72,4 +72,4 @@ def dragon_curve(iterations=4, resolution=1):
     return l_system('FX', {
         'X': 'X+YF+',
         'Y': '-FX-Y'
-        }, iterations, )
+        }, iterations, RIGHT_ANGLE, resolution)
