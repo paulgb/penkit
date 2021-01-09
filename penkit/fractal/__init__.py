@@ -55,3 +55,21 @@ def tree(iterations=4, resolution=1, angle=22.5):
         'F': 'FF',
         'A': 'F[+AF-[A]--A][---A]'
     }, iterations, angle, resolution)
+
+
+def dragon_curve(iterations=4, resolution=1):
+    """Generates an dragon curve using an L-System.
+
+    For more information see: https://en.wikipedia.org/wiki/Dragon_curve
+
+    Args:
+        iterations (int): the number of times to iterate the transformation
+        resolution (int): the number of midpoints along each line
+
+    Returns:
+        A texture
+    """
+    return l_system('FX', {
+        'X': 'X+YF+',
+        'Y': '-FX-Y'
+        }, iterations, RIGHT_ANGLE, resolution)
