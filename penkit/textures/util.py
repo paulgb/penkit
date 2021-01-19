@@ -76,3 +76,26 @@ def crop(layer, x1, y1, x2, y2):
     x[mask] = np.nan
     y[mask] = np.nan
     return x,y
+
+def reverse(layer):
+    """
+    Reverses the drawing order of a layer
+    """
+    x, y = layer
+    x = x.copy()
+    y = y.copy()
+
+    x = np.flip(x)
+    y = np.flip(y)
+    return x,y
+
+def vflip(layer):
+    """
+    Flips a layer along the mean y-axis
+    """
+    x, y = layer
+    x = x.copy()
+    y = y.copy()
+
+    x = -x + 2*np.nanmean(x)
+    return x,y
