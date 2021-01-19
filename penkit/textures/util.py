@@ -39,3 +39,25 @@ def fit_texture(layer):
     x = (x - np.nanmin(x)) / (np.nanmax(x) - np.nanmin(x))
     y = (y - np.nanmin(y)) / (np.nanmax(y) - np.nanmin(y))
     return x, y
+
+def concat(layers):
+    """
+    Args:
+        layers (list(layer)): a list of layers
+    """
+    return (
+        np.concatenate([l[0] for l in layers]),
+        np.concatenate([l[1] for l in layers])
+    )
+
+def translate(layer, offset):
+    x, y = layer
+    x = x.copy() - offset[0]
+    y = y.copy() - offset[1]
+    return x, y
+
+def center(layer):
+    x, y = layer
+    x = (x - np.nanmean(x))
+    y = (y - np.nanmean(y))
+    return x, y
