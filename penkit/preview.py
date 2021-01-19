@@ -10,7 +10,6 @@ from penkit.write import plot_to_svg
 PREVIEW_WIDTH = 330
 PREVIEW_HEIGHT = 255
 
-
 def show_layer(layer, *args, **kwargs):
     """Shortcut for ``show_plot`` when the plot has only one layer.
 
@@ -25,7 +24,7 @@ def show_layer(layer, *args, **kwargs):
     return show_plot([layer], *args, **kwargs)
 
 
-def show_plot(plot, width=PREVIEW_WIDTH, height=PREVIEW_HEIGHT):
+def show_plot(plot, width=PREVIEW_WIDTH, height=PREVIEW_HEIGHT, stroke_thickness_pct=0.003):
     """Preview a plot in a jupyter notebook.
 
     Args:
@@ -36,4 +35,4 @@ def show_plot(plot, width=PREVIEW_WIDTH, height=PREVIEW_HEIGHT):
     Returns:
         An object that renders in Jupyter as the provided plot
     """
-    return SVG(data=plot_to_svg(plot, width, height))
+    return SVG(data=plot_to_svg(plot, width, height, stroke_thickness_pct=stroke_thickness_pct))
