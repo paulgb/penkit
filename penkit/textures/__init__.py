@@ -6,20 +6,22 @@ import numpy as np
 from penkit.textures.util import fit_texture
 
 
-def make_lines_texture(num_lines=10, resolution=50, plaid=False):
+def make_lines_texture(num_lines=10, resolution=50, keep_prob=None):
     """Makes a texture consisting of a given number of horizontal lines.
 
     Args:
         num_lines (int): the number of lines to draw
         resolution (int): the number of midpoints on each line
+        keep_prob (None or float): if provided, should be a number between
+            0 and 1. Lines will be randomly discarded with probability 1-keep_prob.
 
     Returns:
         A texture.
     """
     line_locations = np.linspace(0, 1, num_lines)
 
-    if plaid:
-        mask = np.random.uniform(size=num_lines) > 0.5
+    if keep_prob is not None:
+        mask = np.random.uniform(size=num_lines) > keep_prob
         line_locations = line_locations[mask]
 
     x, y = np.meshgrid(
@@ -46,19 +48,20 @@ def make_grid_texture(num_h_lines=10, num_v_lines=10, resolution=50):
     y_v, x_v = make_lines_texture(num_v_lines, resolution)
     return np.concatenate([x_h, x_v]), np.concatenate([y_h, y_v])
 
-def make_plaid_texture(num_h_lines=10, num_v_lines=10, resolution=50):
+def make_plaid_texture(num_h_lines=10, num_v_lines=10, resolution=50, keep_prob=0.5):
     """Makes a texture consisting of a grid of plaid vertical and horizontal lines.
 
     Args:
         num_h_lines (int): the number of horizontal lines to draw
         num_v_lines (int): the number of vertical lines to draw
         resolution (int): the number of midpoints to draw on each line
+        keep_prob (float): the probability a given line is kept
 
     Returns:
         A texture.
     """
-    x_h, y_h = make_lines_texture(num_h_lines, resolution, plaid=True)
-    y_v, x_v = make_lines_texture(num_v_lines, resolution, plaid=True)
+    x_h, y_h = make_lines_texture(num_h_lines, resolution, keep_prob=keep_prob)
+    y_v, x_v = make_lines_texture(num_v_lines, resolution, keep_prob=keep_prob)
     return np.concatenate([x_h, x_v]), np.concatenate([y_h, y_v])
 
 
