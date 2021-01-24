@@ -5,10 +5,10 @@ import numpy as np
 DEFAULT_PAGE_WIDTH = 11
 DEFAULT_PAGE_HEIGHT = 8.5
 DEFAULT_PAGE_UNIT = 'in'
+STROKE_THICKNESS_PCT = 0.003
 
 # Plot-related defaults
 DEFAULT_VIEW_BOX_MARGIN = 0.1
-STROKE_THICKNESS = 0.003  # Fraction of width of image
 PLOT_COLORS = ['black', 'red', 'green', 'blue', 'cyan', 'orange']
 
 
@@ -82,7 +82,7 @@ def layer_to_path(layer):
     return ' '.join(_layer_to_path_gen(layer))
 
 
-def plot_to_svg(plot, width, height, unit=''):
+def plot_to_svg(plot, width, height, unit='', stroke_thickness_pct=STROKE_THICKNESS_PCT):
     """Converts a plot (list of layers) into an SVG document.
 
     Args:
@@ -98,7 +98,7 @@ def plot_to_svg(plot, width, height, unit=''):
     aspect_ratio = height / width
     view_box = calculate_view_box(flipped_plot, aspect_ratio=aspect_ratio)
     view_box_str = '{} {} {} {}'.format(*view_box)
-    stroke_thickness = STROKE_THICKNESS * (view_box[2])
+    stroke_thickness = stroke_thickness_pct * (view_box[2])
 
     svg = ET.Element('svg', attrib={
         'xmlns': 'http://www.w3.org/2000/svg',
@@ -144,7 +144,8 @@ def layer_to_svg(layer, **kwargs):
     return plot_to_svg([layer], **kwargs)
 
 
-def write_plot(plot, filename, width=DEFAULT_PAGE_WIDTH, height=DEFAULT_PAGE_HEIGHT, unit=DEFAULT_PAGE_UNIT):
+def write_plot(plot, filename, width=DEFAULT_PAGE_WIDTH, height=DEFAULT_PAGE_HEIGHT, 
+    unit=DEFAULT_PAGE_UNIT, stroke_thickness_pct=STROKE_THICKNESS_PCT):
     """Writes a plot SVG to a file.
 
     Args:
@@ -154,6 +155,6 @@ def write_plot(plot, filename, width=DEFAULT_PAGE_WIDTH, height=DEFAULT_PAGE_HEI
         height (float): the height of the output SVG
         unit (str): the unit of the height and width
     """
-    svg = plot_to_svg(plot, width, height, unit)
+    svg = plot_to_svg(plot, width, height, unit, stroke_thickness_pct=stroke_thickness_pct)
     with open(filename, 'w') as outfile:
         outfile.write(svg)

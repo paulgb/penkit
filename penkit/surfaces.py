@@ -70,3 +70,8 @@ def make_bubble_surface(dims=DEFAULT_DIMS, repeat=3):
         np.sin((gradients[0] - 0.5) * repeat * np.pi) *
         np.sin((gradients[1] - 0.5) * repeat * np.pi))
 
+def make_cylinder_surface(dims=DEFAULT_DIMS):
+    gradients = make_gradients(dims)
+    return (
+        np.sqrt(0.5 ** 2 - (gradients[0] - gradients[1]) ** 2)
+    )
