@@ -39,3 +39,63 @@ def fit_texture(layer):
     x = (x - np.nanmin(x)) / (np.nanmax(x) - np.nanmin(x))
     y = (y - np.nanmin(y)) / (np.nanmax(y) - np.nanmin(y))
     return x, y
+
+def concat(layers):
+    """
+    Args:
+        layers (list(layer)): a list of layers
+    """
+    return (
+        np.concatenate([l[0] for l in layers]),
+        np.concatenate([l[1] for l in layers])
+    )
+
+def translate(layer, offset):
+    x, y = layer
+    x = x.copy() - offset[0]
+    y = y.copy() - offset[1]
+    return x, y
+
+def center(layer):
+    x, y = layer
+    x = (x - np.nanmean(x))
+    y = (y - np.nanmean(y))
+    return x, y
+
+def crop(layer, x1, y1, x2, y2):
+    x_min = min(x1, x2)
+    y_min = min(y1, y2)
+    x_max = max(x1, x2)
+    y_max = max(y1, y2)
+
+    x, y = layer
+    x = x.copy()
+    y = y.copy()
+
+    mask = np.logical_or.reduce([x > x_max, x < x_min, y > y_max, y < y_min])
+    x[mask] = np.nan
+    y[mask] = np.nan
+    return x,y
+
+def reverse(layer):
+    """
+    Reverses the drawing order of a layer
+    """
+    x, y = layer
+    x = x.copy()
+    y = y.copy()
+
+    x = np.flip(x)
+    y = np.flip(y)
+    return x,y
+
+def vflip(layer):
+    """
+    Flips a layer along the mean y-axis
+    """
+    x, y = layer
+    x = x.copy()
+    y = y.copy()
+
+    x = -x + 2*np.nanmean(x)
+    return x,y
